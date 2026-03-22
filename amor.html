@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para mi Eliss 💛</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,600&family=Quicksand:wght@300;500&display=swap");
+
+      :root {
+        --gold-glow: #ffd700;
+        --soft-white: #fdfdfd;
+        --bg-dark: #0c0b05;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-dark);
+        color: var(--soft-white);
+        font-family: "Quicksand", sans-serif;
+        overflow-x: hidden;
+      }
+
+      .ambient-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 215, 0, 0.08) 0%,
+          var(--bg-dark) 100%
+        );
+        z-index: -1;
+      }
+
+      header {
+        padding: 20px 0;
+        text-align: center;
+        z-index: 100;
+      }
+
+      .name-glow {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2.5em, 8vw, 5em);
+        color: #fff;
+        text-shadow:
+          0 0 15px #fff,
+          0 0 30px var(--gold-glow);
+        animation: latidoReal 3s infinite ease-in-out;
+        cursor: pointer;
+      }
+
+      @keyframes latidoReal {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* 📱 CONTENEDOR FLEXIBLE ADAPTATIVO */
+      .main-content {
+        display: flex;
+        flex-direction: row; /* PC: Lado a lado */
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 20px 5%;
+        min-height: 70vh;
+      }
+
+      .video-cinema-frame {
+        width: 45%;
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        position: relative;
+      }
+
+      .bg-video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 2s ease;
+      }
+
+      .bg-video.active {
+        opacity: 1;
+      }
+
+      .poem-display-area {
+        width: 45%;
+        max-height: 65vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .poem-scroll-box {
+        overflow-y: auto;
+        padding: 10px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--gold-glow) transparent;
+      }
+
+      /* 📲 RESPONSIVE PARA MÓVIL */
+      @media (max-width: 850px) {
+        .main-content {
+          flex-direction: column; /* Móvil: Uno abajo del otro */
+          padding-bottom: 100px;
+        }
+        .video-cinema-frame {
+          width: 95%;
+        }
+        .poem-display-area {
+          width: 95%;
+          max-height: none;
+        }
+        body {
+          overflow-y: auto;
+        }
+      }
+
+      .verse {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.2em, 5vw, 1.8em);
+        font-style: italic;
+        margin: 20px 0;
+        opacity: 0;
+        transform: translateY(15px);
+        transition: all 1.5s ease;
+        line-height: 1.4;
+      }
+
+      .verse.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .final-msg {
+        font-family: "Dancing Script", cursive;
+        font-size: 3.5em;
+        color: var(--gold-glow);
+        text-align: center;
+        opacity: 0;
+        transition: 3s;
+      }
+
+      .petal {
+        position: fixed;
+        background: #fff;
+        border-radius: 150% 0 150% 0;
+        z-index: 50;
+        pointer-events: none;
+        animation: drift linear forwards;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translateY(-10vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(110vh) translateX(100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .cinema-footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 15px;
+        text-align: center;
+        background: linear-gradient(transparent, var(--bg-dark));
+        z-index: 100;
+      }
+
+      #timer {
+        font-size: 1em;
+        letter-spacing: 2px;
+        color: var(--gold-glow);
+        background: rgba(0, 0, 0, 0.4);
+        padding: 5px 15px;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="musicaFondo" loop>
+      <source src="musica.mp3.mpeg" type="audio/mpeg" />
+    </audio>
+    <div class="ambient-bg"></div>
+
+    <header>
+      <div
+        class="name-glow"
+        onclick="document.getElementById('musicaFondo').play()"
+      >
+        Para mi dulce Eliss 💛
+      </div>
+      <p style="font-size: 0.7em; opacity: 0.5; margin: 5px">
+        (Toca tu nombre 🎵)
+      </p>
+    </header>
+
+    <main class="main-content">
+      <div class="video-cinema-frame">
+        <video id="v1" class="bg-video active" autoplay loop muted playsinline>
+          <source src="clip1.mp4.mp4" type="video/mp4" />
+        </video>
+        <video id="v2" class="bg-video" autoplay loop muted playsinline>
+          <source src="clip2.mp4.mp4" type="video/mp4" />
+        </video>
+        <video id="v3" class="bg-video" autoplay loop muted playsinline>
+          <source src="clip3.mp4.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="poem-display-area">
+        <div class="poem-scroll-box" id="scroll-box">
+          <div id="poem-content"></div>
+          <h2 id="final" class="final-msg">Te amo</h2>
+        </div>
+      </div>
+    </main>
+
+    <footer class="cinema-footer">
+      <div id="timer">00d 00h 00m 00s</div>
+    </footer>
+
+    <script>
+      document.body.addEventListener(
+        "click",
+        () => {
+          document.getElementById("musicaFondo").play();
+        },
+        { once: true },
+      );
+
+      const poema = [
+        "Bajo nuestro sol dorado 💛",
+        "Bajo un cielo teñido de oro suave,",
+        "donde el alma aprende a sentir sin miedo,",
+        "florece tu nombre en cada parte de mí,",
+        "como un susurro eterno… como mi universo.",
+        "No llegaste por casualidad, lo sé,",
+        "llegaste como luz en medio del caos,",
+        "como ese ángel hermoso que sin saberlo,",
+        "me sostuvo cuando el mundo pesaba demasiado.",
+        "Eres eso que no se explica… se siente,",
+        "mi dulce de vida, mi calma infinita,",
+        "mi pequeña, mi hermosa manzanita 🍎",
+        "En cada flor amarilla te encuentro,",
+        "en cada rayo de sol te vuelvo a ver,",
+        "porque amarte no es solo un sentimiento…",
+        "es el lugar donde siempre quiero permanecer.",
+        "Si el tiempo avanza, que avance contigo,",
+        "si la vida cambia, que me encuentre a tu lado,",
+        "porque no hay destino más bonito que este:",
+        "tenerte… amarte… y llamarte mi todo 💛",
+      ];
+
+      const container = document.getElementById("poem-content");
+      poema.forEach((t) => {
+        const d = document.createElement("div");
+        d.className = "verse";
+        d.innerHTML = t;
+        container.appendChild(d);
+      });
+
+      let idx = 0;
+      const verses = document.querySelectorAll(".verse");
+      function show() {
+        if (idx < verses.length) {
+          verses[idx].classList.add("visible");
+          verses[idx].scrollIntoView({ behavior: "smooth", block: "center" });
+          idx++;
+          setTimeout(show, 3500);
+        } else {
+          document.getElementById("final").style.opacity = "1";
+          document
+            .getElementById("final")
+            .scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      setTimeout(show, 2000);
+
+      function timer() {
+        const start = new Date("August 17, 2025 00:00:00").getTime();
+        const now = new Date().getTime();
+        const d = now - start;
+        const days = Math.floor(d / 86400000);
+        const hrs = Math.floor((d % 86400000) / 3600000);
+        const min = Math.floor((d % 3600000) / 60000);
+        const sec = Math.floor((d % 60000) / 1000);
+        document.getElementById("timer").innerHTML =
+          `${days}d ${hrs}h ${min}m ${sec}s`;
+      }
+      setInterval(timer, 1000);
+
+      setInterval(() => {
+        const p = document.createElement("div");
+        p.className = "petal";
+        p.style.width = Math.random() * 10 + 5 + "px";
+        p.style.height = p.style.width;
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = Math.random() * 5 + 5 + "s";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 8000);
+      }, 400);
+
+      const vids = [
+        document.getElementById("v1"),
+        document.getElementById("v2"),
+        document.getElementById("v3"),
+      ];
+      let cv = 0;
+      setInterval(() => {
+        vids[cv].classList.remove("active");
+        cv = (cv + 1) % vids.length;
+        vids[cv].classList.add("active");
+      }, 10000);
+    </script>
+  </body>
+</html>
